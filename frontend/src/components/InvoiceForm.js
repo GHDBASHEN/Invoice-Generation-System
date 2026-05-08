@@ -7,14 +7,14 @@ const InputLabel = ({ children }) => (
 
 const InputField = ({ ...props }) => (
   <input 
-    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-colors"
+    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-colors disabled:opacity-75 disabled:bg-slate-200 disabled:cursor-not-allowed"
     {...props} 
   />
 );
 
 const TextArea = ({ ...props }) => (
   <textarea 
-    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-colors resize-y"
+    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-colors resize-y disabled:opacity-75 disabled:bg-slate-200 disabled:cursor-not-allowed"
     {...props} 
   />
 );
@@ -46,8 +46,9 @@ const InvoiceForm = ({ state }) => {
               <InputField
                 type="text"
                 value={invoice.invoiceNumber}
-                onChange={(e) => updateMetadata('invoiceNumber', e.target.value)}
-                placeholder="e.g. INV-001"
+                readOnly
+                disabled
+                placeholder="Auto-generated"
               />
             </div>
             <div>

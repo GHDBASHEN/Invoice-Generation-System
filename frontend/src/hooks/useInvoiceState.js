@@ -31,21 +31,39 @@ export const useInvoiceState = (initialId = null) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchInvoice = async () => {
-      if (initialId) {
-        setLoading(true);
-        try {
+    const setupInvoice = async () => {
+      setLoading(true);
+      try {
+        if (initialId) {
           const data = await api.getInvoiceById(initialId);
-          // Map backend _id to id for items if needed, but data should be mostly identical
           setInvoice(data);
-        } catch (error) {
-          console.error("Failed to fetch invoice", error);
-        } finally {
-          setLoading(false);
+        } else {
+          // Auto-generate incrementing invoice number
+          const allInvoices = await api.getInvoices();
+          let nextNumber = 1;
+          
+          if (allInvoices && allInvoices.length > 0) {
+            const numbers = allInvoices
+              .map(inv => inv.invoiceNumber)
+              .filter(num => num && num.startsWith('INV-'))
+              .map(num => parseInt(num.replace('INV-', ''), 10))
+              .filter(num => !isNaN(num));
+              
+            if (numbers.length > 0) {
+              nextNumber = Math.max(...numbers) + 1;
+            }
+          }
+          
+          const formattedNumber = `INV-${String(nextNumber).padStart(5, '0')}`;
+          setInvoice({ ...emptyInvoice, invoiceNumber: formattedNumber });
         }
+      } catch (error) {
+        console.error("Failed to setup invoice", error);
+      } finally {
+        setLoading(false);
       }
     };
-    fetchInvoice();
+    setupInvoice();
   }, [initialId]);
 
   // Derived state (calculations)
