@@ -99,9 +99,7 @@ npm install
 Create a `.env` file inside the `backend` folder and add:
 
 ```env
-PORT=5000
-MONGODB_URI=mongodb+srv://root:ghdb2001@cluster0.b0btev3.mongodb.net/?appName=Cluster0
-NODE_ENV=development
+The .env is attached to the mail
 ```
 
 > Replace the MongoDB URI with your MongoDB Atlas URI if using cloud MongoDB.
