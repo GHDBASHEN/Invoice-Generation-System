@@ -1,21 +1,17 @@
-import { useEffect, useState } from "react";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
+import InvoiceBuilder from './pages/InvoiceBuilder';
 
 function App() {
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    fetch("http://localhost:5000/")
-      .then((res) => res.json())
-      .then((data) => {
-        setMessage(data.message);
-      });
-  }, []);
-
   return (
-    <div>
-      <h1>React + Express Project</h1>
-      <p>{message}</p>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/create" element={<InvoiceBuilder />} />
+        <Route path="/edit/:id" element={<InvoiceBuilder />} />
+      </Routes>
+    </Router>
   );
 }
 
