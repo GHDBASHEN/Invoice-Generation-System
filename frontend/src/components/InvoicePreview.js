@@ -21,7 +21,7 @@ const InvoicePreview = ({ state }) => {
   const { subtotal, discountAmount, taxAmount, total } = calculations;
 
   return (
-    <div className="bg-white min-h-full print-only page-break p-12 max-w-[800px] mx-auto text-slate-800">
+    <div className="bg-white min-h-full page-break p-12 max-w-[800px] mx-auto text-slate-800">
       <div className="w-full">
         
         {/* Header */}

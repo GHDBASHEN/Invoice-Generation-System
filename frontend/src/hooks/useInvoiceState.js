@@ -117,12 +117,12 @@ export const useInvoiceState = (initialId = null) => {
   const saveInvoice = async () => {
     try {
       if (invoice._id) {
-        const updated = await api.updateInvoice(invoice._id, invoice);
-        setInvoice(updated);
-        return updated._id;
+        await api.updateInvoice(invoice._id, invoice);
+        return invoice._id;
       } else {
         const created = await api.createInvoice(invoice);
-        setInvoice(created);
+        // Only update the _id so we don't overwrite user's typing that happened during the request
+        setInvoice(prev => ({ ...prev, _id: created._id }));
         return created._id;
       }
     } catch (error) {
