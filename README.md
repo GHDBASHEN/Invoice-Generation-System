@@ -2,6 +2,12 @@
 
 A full-stack web application built with the MERN stack that allows users to create, preview, and download professional invoices through a clean and intuitive interface. 
 
+<img width="1910" height="724" alt="image" src="https://github.com/user-attachments/assets/bca6adfe-f761-4624-adba-f1832688aa90" />
+
+<img width="1901" height="983" alt="image" src="https://github.com/user-attachments/assets/e874f321-fc34-44e9-aeae-1d277e07688a" />
+
+<img width="660" height="857" alt="image" src="https://github.com/user-attachments/assets/7bc526ae-ee21-4ea8-8c9b-c54f86b28b60" />
+
 ## 🚀 Features
 
 * **Interactive Invoice Builder**: Easily capture Biller details, Client details, and Invoice metadata (issue date, due date, invoice number).
