@@ -42,6 +42,11 @@ const invoiceSchema = new mongoose.Schema({
   currency: {
     type: String,
     default: 'USD'
+  },
+  status: {
+    type: String,
+    enum: ['Unpaid', 'Paid'],
+    default: 'Unpaid'
   }
 }, { timestamps: true });
 

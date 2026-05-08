@@ -21,13 +21,15 @@ const InvoicePreview = ({ state }) => {
   const { subtotal, discountAmount, taxAmount, total } = calculations;
 
   return (
-    <div className="bg-white min-h-full page-break p-6 sm:p-12 max-w-[800px] mx-auto text-slate-800">
-      <div className="w-full">
+    <div className="bg-white min-h-full page-break p-6 sm:p-12 max-w-[800px] mx-auto text-slate-800 relative">
+      <div className="w-full relative z-10">
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start mb-12 pb-8 border-b-2 border-slate-200 gap-8 sm:gap-4">
           <div>
-            <h1 className="text-4xl font-bold tracking-widest text-indigo-600 mb-6">INVOICE</h1>
+            <div className="flex items-center gap-6 mb-6">
+              <h1 className="text-4xl font-bold tracking-widest text-indigo-600 m-0">INVOICE</h1>
+            </div>
             <div className="flex flex-col gap-2">
               <div className="flex gap-4">
                 <span className="font-semibold text-slate-500 w-24">Invoice</span>
@@ -54,15 +56,22 @@ const InvoicePreview = ({ state }) => {
         </div>
 
         {/* Client Details */}
-        <div className="mb-12">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4">Bill To:</h3>
+        <div className="mb-12 flex justify-between items-center sm:items-end">
           <div>
-            <h4 className="text-xl font-bold text-slate-900 mb-2">{invoice.client.name || 'Client Name'}</h4>
-            <div className="text-slate-500 leading-relaxed">
-              {invoice.client.address && <p>{invoice.client.address}</p>}
-              {invoice.client.email && <p>{invoice.client.email}</p>}
+            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4">Bill To:</h3>
+            <div>
+              <h4 className="text-xl font-bold text-slate-900 mb-2">{invoice.client.name || 'Client Name'}</h4>
+              <div className="text-slate-500 leading-relaxed">
+                {invoice.client.address && <p>{invoice.client.address}</p>}
+                {invoice.client.email && <p>{invoice.client.email}</p>}
+              </div>
             </div>
           </div>
+          {invoice.status === 'Paid' && (
+            <div className="pr-2 sm:pr-8 pb-2 sm:pb-4">
+              <span className="inline-block px-6 py-2 sm:px-8 sm:py-3 text-3xl sm:text-4xl font-black tracking-widest text-green-600 border-4 sm:border-8 border-green-600 rounded-xl uppercase rotate-[-10deg] opacity-90 shadow-sm">PAID</span>
+            </div>
+          )}
         </div>
 
         {/* Items Table */}

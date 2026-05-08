@@ -25,6 +25,7 @@ const emptyInvoice = {
   discountPercentage: 0,
   notes: '',
   currency: 'USD',
+  status: 'Unpaid',
 };
 
 export const useInvoiceState = (initialId = null) => {

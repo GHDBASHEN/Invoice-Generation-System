@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Edit2, Trash2, FileText } from 'lucide-react';
+import { Plus, Edit2, Trash2, FileText, CheckCircle } from 'lucide-react';
 import * as api from '../services/api';
 
 const formatDate = (dateString) => {
@@ -48,6 +48,16 @@ const Dashboard = () => {
       } catch (error) {
         console.error("Failed to delete invoice", error);
       }
+    }
+  };
+
+  const togglePaidStatus = async (invoice) => {
+    const newStatus = invoice.status === 'Paid' ? 'Unpaid' : 'Paid';
+    try {
+      const updatedInvoice = await api.updateInvoice(invoice._id, { ...invoice, status: newStatus });
+      setInvoices(invoices.map(inv => inv._id === invoice._id ? updatedInvoice : inv));
+    } catch (error) {
+      console.error("Failed to update status", error);
     }
   };
 
@@ -100,6 +110,7 @@ const Dashboard = () => {
                   <th className="p-4 font-semibold text-slate-500 text-sm">Client</th>
                   <th className="p-4 font-semibold text-slate-500 text-sm">Issue Date</th>
                   <th className="p-4 font-semibold text-slate-500 text-sm">Amount</th>
+                  <th className="p-4 font-semibold text-slate-500 text-sm">Status</th>
                   <th className="p-4 font-semibold text-slate-500 text-sm text-right">Actions</th>
                 </tr>
               </thead>
@@ -110,8 +121,20 @@ const Dashboard = () => {
                     <td className="p-4 text-slate-600">{invoice.client.name || 'Unknown Client'}</td>
                     <td className="p-4 text-slate-600">{formatDate(invoice.issueDate)}</td>
                     <td className="p-4 font-semibold text-indigo-600">{formatCurrency(calculateTotal(invoice), invoice.currency)}</td>
+                    <td className="p-4">
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${invoice.status === 'Paid' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-700'}`}>
+                        {invoice.status || 'Unpaid'}
+                      </span>
+                    </td>
                     <td className="p-4 text-right">
                       <div className="flex justify-end gap-2">
+                        <button
+                          className={`p-2 rounded-md transition-colors ${invoice.status === 'Paid' ? 'text-green-500 hover:bg-green-50' : 'text-slate-400 hover:text-green-500 hover:bg-slate-100'}`}
+                          title={invoice.status === 'Paid' ? "Mark as Unpaid" : "Mark as Paid"}
+                          onClick={() => togglePaidStatus(invoice)}
+                        >
+                          <CheckCircle size={18} />
+                        </button>
                         <button
                           className="p-2 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-md transition-colors"
                           title="Edit Invoice"
