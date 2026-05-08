@@ -38,6 +38,10 @@ const invoiceSchema = new mongoose.Schema({
   },
   notes: {
     type: String
+  },
+  currency: {
+    type: String,
+    default: 'USD'
   }
 }, { timestamps: true });
 

@@ -19,6 +19,15 @@ const TextArea = ({ ...props }) => (
   />
 );
 
+const SelectField = ({ children, ...props }) => (
+  <select 
+    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-colors disabled:opacity-75 disabled:bg-slate-200 disabled:cursor-not-allowed"
+    {...props}
+  >
+    {children}
+  </select>
+);
+
 const InvoiceForm = ({ state }) => {
   const {
     invoice,
@@ -40,7 +49,7 @@ const InvoiceForm = ({ state }) => {
         {/* Metadata Section */}
         <div className="pb-8 mb-8 border-b border-slate-200">
           <h3 className="text-lg font-semibold text-indigo-600 mb-4">Information</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             <div>
               <InputLabel>Invoice Number</InputLabel>
               <InputField
@@ -50,6 +59,23 @@ const InvoiceForm = ({ state }) => {
                 disabled
                 placeholder="Auto-generated"
               />
+            </div>
+            <div>
+              <InputLabel>Currency</InputLabel>
+              <SelectField
+                value={invoice.currency || 'USD'}
+                onChange={(e) => updateMetadata('currency', e.target.value)}
+              >
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="JPY">JPY (¥)</option>
+                <option value="CAD">CAD ($)</option>
+                <option value="AUD">AUD ($)</option>
+                <option value="INR">INR (₹)</option>
+                <option value="CNY">CNY (¥)</option>
+                <option value="LKR">LKR (Rs)</option>
+              </SelectField>
             </div>
             <div>
               <InputLabel>Issue Date</InputLabel>

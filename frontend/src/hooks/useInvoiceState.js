@@ -24,6 +24,7 @@ const emptyInvoice = {
   taxPercentage: 0,
   discountPercentage: 0,
   notes: '',
+  currency: 'USD',
 };
 
 export const useInvoiceState = (initialId = null) => {

@@ -1,9 +1,9 @@
 import React from 'react';
 
-const formatCurrency = (amount) => {
+const formatCurrency = (amount, currencyCode = 'USD') => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency: currencyCode,
   }).format(amount);
 };
 
@@ -23,14 +23,14 @@ const InvoicePreview = ({ state }) => {
   return (
     <div className="bg-white min-h-full page-break p-12 max-w-[800px] mx-auto text-slate-800">
       <div className="w-full">
-        
+
         {/* Header */}
         <div className="flex justify-between items-start mb-12 pb-8 border-b-2 border-slate-200">
           <div>
             <h1 className="text-4xl font-bold tracking-widest text-indigo-600 mb-6">INVOICE</h1>
             <div className="flex flex-col gap-2">
               <div className="flex gap-4">
-                <span className="font-semibold text-slate-500 w-24">Invoice #</span>
+                <span className="font-semibold text-slate-500 w-24">Invoice</span>
                 <span className="font-medium text-slate-900">{invoice.invoiceNumber || '—'}</span>
               </div>
               <div className="flex gap-4">
@@ -69,7 +69,7 @@ const InvoicePreview = ({ state }) => {
         <div className="mb-12">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-indigo-600 text-white !print-bg-indigo-100 !print-text-slate-900">
+              <tr className="bg-indigo-600 text-white">
                 <th className="p-4 font-semibold">Description</th>
                 <th className="p-4 font-semibold text-center">Qty</th>
                 <th className="p-4 font-semibold text-right">Price</th>
@@ -81,8 +81,8 @@ const InvoicePreview = ({ state }) => {
                 <tr key={item.id || item._id} className="border-b border-slate-200">
                   <td className="p-4 align-top">{item.description || 'Item description'}</td>
                   <td className="p-4 align-top text-center">{item.quantity}</td>
-                  <td className="p-4 align-top text-right">{formatCurrency(item.unitPrice)}</td>
-                  <td className="p-4 align-top text-right font-medium text-slate-900">{formatCurrency(item.quantity * item.unitPrice)}</td>
+                  <td className="p-4 align-top text-right">{formatCurrency(item.unitPrice, invoice.currency)}</td>
+                  <td className="p-4 align-top text-right font-medium text-slate-900">{formatCurrency(item.quantity * item.unitPrice, invoice.currency)}</td>
                 </tr>
               ))}
             </tbody>
@@ -102,23 +102,23 @@ const InvoicePreview = ({ state }) => {
           <div className="w-[300px]">
             <div className="flex justify-between py-3 border-b border-slate-200 text-slate-700">
               <span>Subtotal</span>
-              <span className="font-medium text-slate-900">{formatCurrency(subtotal)}</span>
+              <span className="font-medium text-slate-900">{formatCurrency(subtotal, invoice.currency)}</span>
             </div>
             {invoice.discountPercentage > 0 && (
               <div className="flex justify-between py-3 border-b border-slate-200 text-red-500">
                 <span>Discount ({invoice.discountPercentage}%)</span>
-                <span>-{formatCurrency(discountAmount)}</span>
+                <span>-{formatCurrency(discountAmount, invoice.currency)}</span>
               </div>
             )}
             {invoice.taxPercentage > 0 && (
               <div className="flex justify-between py-3 border-b border-slate-200 text-slate-700">
                 <span>Tax ({invoice.taxPercentage}%)</span>
-                <span className="font-medium text-slate-900">{formatCurrency(taxAmount)}</span>
+                <span className="font-medium text-slate-900">{formatCurrency(taxAmount, invoice.currency)}</span>
               </div>
             )}
             <div className="flex justify-between py-4 mt-2 border-t-2 border-slate-900 text-xl font-bold">
               <span className="text-slate-900">Total</span>
-              <span className="text-indigo-600">{formatCurrency(total)}</span>
+              <span className="text-indigo-600">{formatCurrency(total, invoice.currency)}</span>
             </div>
           </div>
         </div>

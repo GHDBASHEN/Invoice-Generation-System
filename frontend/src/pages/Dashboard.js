@@ -12,10 +12,10 @@ const formatDate = (dateString) => {
   });
 };
 
-const formatCurrency = (amount) => {
+const formatCurrency = (amount, currencyCode = 'USD') => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency: currencyCode,
   }).format(amount);
 };
 
@@ -66,7 +66,7 @@ const Dashboard = () => {
           <h1 className="text-3xl font-bold text-slate-900 mb-1">Invoices</h1>
           <p className="text-slate-500 m-0">Manage and track your generated invoices.</p>
         </div>
-        <button 
+        <button
           className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors shadow-sm"
           onClick={() => navigate('/create')}
         >
@@ -84,7 +84,7 @@ const Dashboard = () => {
             <FileText size={48} className="text-slate-300 mb-6" />
             <h3 className="text-xl font-semibold text-slate-900 mb-2">No Invoices Yet</h3>
             <p className="text-slate-500 mb-8 max-w-md">Create your first invoice to see it listed here.</p>
-            <button 
+            <button
               className="px-6 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors"
               onClick={() => navigate('/create')}
             >
@@ -96,7 +96,7 @@ const Dashboard = () => {
             <table className="w-full text-left border-collapse min-w-[800px]">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-200">
-                  <th className="p-4 font-semibold text-slate-500 text-sm">Invoice #</th>
+                  <th className="p-4 font-semibold text-slate-500 text-sm">Invoice</th>
                   <th className="p-4 font-semibold text-slate-500 text-sm">Client</th>
                   <th className="p-4 font-semibold text-slate-500 text-sm">Issue Date</th>
                   <th className="p-4 font-semibold text-slate-500 text-sm">Amount</th>
@@ -109,17 +109,17 @@ const Dashboard = () => {
                     <td className="p-4 font-medium text-slate-900">{invoice.invoiceNumber || 'Draft'}</td>
                     <td className="p-4 text-slate-600">{invoice.client.name || 'Unknown Client'}</td>
                     <td className="p-4 text-slate-600">{formatDate(invoice.issueDate)}</td>
-                    <td className="p-4 font-semibold text-indigo-600">{formatCurrency(calculateTotal(invoice))}</td>
+                    <td className="p-4 font-semibold text-indigo-600">{formatCurrency(calculateTotal(invoice), invoice.currency)}</td>
                     <td className="p-4 text-right">
                       <div className="flex justify-end gap-2">
-                        <button 
+                        <button
                           className="p-2 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-md transition-colors"
                           title="Edit Invoice"
                           onClick={() => navigate(`/edit/${invoice._id}`)}
                         >
                           <Edit2 size={18} />
                         </button>
-                        <button 
+                        <button
                           className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
                           title="Delete Invoice"
                           onClick={() => deleteInvoice(invoice._id)}
