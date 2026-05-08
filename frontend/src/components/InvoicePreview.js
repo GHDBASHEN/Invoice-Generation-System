@@ -21,11 +21,11 @@ const InvoicePreview = ({ state }) => {
   const { subtotal, discountAmount, taxAmount, total } = calculations;
 
   return (
-    <div className="bg-white min-h-full page-break p-12 max-w-[800px] mx-auto text-slate-800">
+    <div className="bg-white min-h-full page-break p-6 sm:p-12 max-w-[800px] mx-auto text-slate-800">
       <div className="w-full">
 
         {/* Header */}
-        <div className="flex justify-between items-start mb-12 pb-8 border-b-2 border-slate-200">
+        <div className="flex flex-col sm:flex-row justify-between items-start mb-12 pb-8 border-b-2 border-slate-200 gap-8 sm:gap-4">
           <div>
             <h1 className="text-4xl font-bold tracking-widest text-indigo-600 mb-6">INVOICE</h1>
             <div className="flex flex-col gap-2">
@@ -43,7 +43,7 @@ const InvoicePreview = ({ state }) => {
               </div>
             </div>
           </div>
-          <div className="text-right max-w-[300px]">
+          <div className="text-left sm:text-right max-w-full sm:max-w-[300px]">
             <h2 className="text-2xl font-bold text-slate-900 mb-2">{invoice.biller.name || 'Your Company Name'}</h2>
             <div className="text-slate-500 leading-relaxed">
               {invoice.biller.address && <p>{invoice.biller.address}</p>}
@@ -66,8 +66,8 @@ const InvoicePreview = ({ state }) => {
         </div>
 
         {/* Items Table */}
-        <div className="mb-12">
-          <table className="w-full text-left border-collapse">
+        <div className="mb-12 overflow-x-auto">
+          <table className="w-full text-left border-collapse min-w-[500px]">
             <thead>
               <tr className="bg-indigo-600 text-white">
                 <th className="p-4 font-semibold">Description</th>
@@ -90,7 +90,7 @@ const InvoicePreview = ({ state }) => {
         </div>
 
         {/* Summary */}
-        <div className="flex justify-between gap-8">
+        <div className="flex flex-col sm:flex-row justify-between gap-8">
           <div className="flex-1">
             {invoice.notes && (
               <div>
@@ -99,7 +99,7 @@ const InvoicePreview = ({ state }) => {
               </div>
             )}
           </div>
-          <div className="w-[300px]">
+          <div className="w-full sm:w-[300px]">
             <div className="flex justify-between py-3 border-b border-slate-200 text-slate-700">
               <span>Subtotal</span>
               <span className="font-medium text-slate-900">{formatCurrency(subtotal, invoice.currency)}</span>

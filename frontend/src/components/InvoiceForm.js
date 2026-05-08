@@ -183,9 +183,9 @@ const InvoiceForm = ({ state }) => {
           <h3 className="text-lg font-semibold text-indigo-600 mb-4">Line Items</h3>
           <div className="space-y-3 mb-4">
             {invoice.items.map((item, index) => (
-              <div key={item.id} className="flex flex-wrap sm:flex-nowrap items-end gap-4">
+              <div key={item.id} className="flex flex-wrap sm:flex-nowrap items-end gap-4 p-4 sm:p-0 bg-slate-50 sm:bg-transparent rounded-lg sm:rounded-none border sm:border-0 border-slate-200 sm:border-transparent">
                 <div className="w-full sm:flex-[3]">
-                  {index === 0 && <InputLabel>Description</InputLabel>}
+                  <div className={index === 0 ? 'block' : 'sm:hidden'}><InputLabel>Description</InputLabel></div>
                   <InputField
                     type="text"
                     value={item.description}
@@ -194,7 +194,7 @@ const InvoiceForm = ({ state }) => {
                   />
                 </div>
                 <div className="w-full sm:flex-[1]">
-                  {index === 0 && <InputLabel>Qty</InputLabel>}
+                  <div className={index === 0 ? 'block' : 'sm:hidden'}><InputLabel>Qty</InputLabel></div>
                   <InputField
                     type="number"
                     min="1"
@@ -203,7 +203,7 @@ const InvoiceForm = ({ state }) => {
                   />
                 </div>
                 <div className="w-full sm:flex-[1]">
-                  {index === 0 && <InputLabel>Price</InputLabel>}
+                  <div className={index === 0 ? 'block' : 'sm:hidden'}><InputLabel>Price</InputLabel></div>
                   <InputField
                     type="number"
                     min="0"
@@ -212,8 +212,8 @@ const InvoiceForm = ({ state }) => {
                     onChange={(e) => updateItem(item.id || item._id, 'unitPrice', e.target.value)}
                   />
                 </div>
-                <div className="shrink-0">
-                  {index === 0 && <label className="block text-sm mb-1">&nbsp;</label>}
+                <div className="shrink-0 w-full sm:w-auto flex justify-end sm:block mt-2 sm:mt-0">
+                  {index === 0 && <label className="hidden sm:block text-sm mb-1">&nbsp;</label>}
                   <button 
                     className="p-2 bg-red-50 text-red-600 rounded-lg border border-red-200 hover:bg-red-100 hover:border-red-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors" 
                     onClick={() => removeItem(item.id || item._id)}
