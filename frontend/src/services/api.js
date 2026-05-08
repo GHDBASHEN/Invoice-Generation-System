@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/invoices';
+const LOCAL_API_URL = 'http://localhost:5000/api/invoices';
+const REMOTE_API_URL = 'https://invoice-generation-system-9dj0.onrender.com/api/invoices';
+
+// Automatically use local API when running on localhost, otherwise use remote
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? LOCAL_API_URL 
+  : REMOTE_API_URL;
 
 export const getInvoices = async () => {
   const response = await axios.get(API_URL);
