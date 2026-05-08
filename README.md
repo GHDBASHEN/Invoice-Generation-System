@@ -1,2 +1,51 @@
-# Invoice-Generation-System
-building a fully functional, web-based Invoice Generation System. This system should allow a user to create, preview, and download professional invoices through a clean and intuitive interface.
+# Invoice Generation System
+
+A full-stack web application built with the MERN stack that allows users to create, preview, and download professional invoices through a clean and intuitive interface. 
+
+## 🚀 Features
+
+* **Interactive Invoice Builder**: Easily capture Biller details, Client details, and Invoice metadata (issue date, due date, invoice number).
+* **Dynamic Line Items**: Add, edit, and remove invoice line items (description, quantity, unit price) dynamically.
+* **Calculations**: Automatic calculation of subtotal, configurable tax rates, discounts, and total amounts.
+* **Real-time Preview**: See a live representation of the final invoice as you type.
+* **PDF Export**: Export the generated invoice to a clean, professional PDF format.
+* **REST API**: Backend system to securely store and retrieve invoice data.
+
+## 🛠️ Tech Stack
+
+**Frontend**
+* React.js (Functional components & hooks)
+* Tailwind CSS (for styling)
+* Axios (for API requests)
+* React Router DOM
+* Lucide React (for icons)
+
+**Backend**
+* Node.js & Express.js
+* MongoDB & Mongoose (Schema modeling)
+* CORS & Dotenv
+
+## 📂 Project Structure
+
+The project is structured as a monorepo containing both the frontend and backend applications:
+
+```text
+├── backend/                # Node.js / Express backend
+│   ├── controllers/        # Route handlers logic
+│   ├── models/             # Mongoose database schemas
+│   ├── routes/             # API route definitions
+│   ├── server.js           # Express app entry point
+│   └── package.json        # Backend dependencies
+│
+├── frontend/               # React frontend
+│   ├── public/             # Static assets
+│   ├── src/
+│   │   ├── components/     # Reusable React components (InvoiceForm, InvoicePreview)
+│   │   ├── hooks/          # Custom React hooks (useInvoiceState)
+│   │   ├── pages/          # Application pages (Dashboard, InvoiceBuilder)
+│   │   ├── services/       # API integration functions
+│   │   ├── App.js          # Main React component
+│   │   └── index.js        # React app entry point
+│   └── package.json        # Frontend dependencies
+│
+└── README.md               # Project documentation
