@@ -117,7 +117,14 @@ const Dashboard = () => {
               <tbody>
                 {invoices.map((invoice) => (
                   <tr key={invoice._id} className="border-b border-slate-200 last:border-0 hover:bg-slate-50 transition-colors">
-                    <td className="p-4 font-medium text-slate-900">{invoice.invoiceNumber || 'Draft'}</td>
+                    <td className="p-4 font-medium text-slate-900">
+                      <span 
+                        className="cursor-pointer text-indigo-600 hover:text-indigo-800 hover:underline"
+                        onClick={() => navigate(`/view/${invoice._id}`)}
+                      >
+                        {invoice.invoiceNumber || 'Draft'}
+                      </span>
+                    </td>
                     <td className="p-4 text-slate-600">{invoice.client.name || 'Unknown Client'}</td>
                     <td className="p-4 text-slate-600">{formatDate(invoice.issueDate)}</td>
                     <td className="p-4 font-semibold text-indigo-600">{formatCurrency(calculateTotal(invoice), invoice.currency)}</td>
